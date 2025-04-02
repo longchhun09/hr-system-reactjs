@@ -1,0 +1,302 @@
+[
+  {
+    "id": 1001,
+    "name": "John Smith",
+    "position": "CEO",
+    "department": "Executive",
+    "hire_date": "2015-06-12",
+    "status": "Active",
+    "manager": null,
+    "salary": 185000
+  },
+  {
+    "id": 1002,
+    "name": "Sarah Johnson",
+    "position": "CTO",
+    "department": "Technology",
+    "hire_date": "2016-03-15",
+    "status": "Active",
+    "manager": 1001,
+    "salary": 165000
+  },
+  {
+    "id": 1003,
+    "name": "Michael Rodriguez",
+    "position": "CFO",
+    "department": "Finance",
+    "hire_date": "2017-05-20",
+    "status": "Active",
+    "manager": 1001,
+    "salary": 160000
+  },
+  {
+    "id": 1004,
+    "name": "Lisa Chen",
+    "position": "HR Director",
+    "department": "Human Resources",
+    "hire_date": "2017-08-10",
+    "status": "Active",
+    "manager": 1001,
+    "salary": 135000
+  },
+  {
+    "id": 1005,
+    "name": "David Wilson",
+    "position": "Marketing Director",
+    "department": "Marketing",
+    "hire_date": "2018-01-15",
+    "status": "Active",
+    "manager": 1001,
+    "salary": 130000
+  },
+  {
+    "id": 1006,
+    "name": "Jennifer Lee",
+    "position": "Senior Developer",
+    "department": "Technology",
+    "hire_date": "2018-04-02",
+    "status": "Active",
+    "manager": 1002,
+    "salary": 115000
+  },
+  {
+    "id": 1007,
+    "name": "Robert Taylor",
+    "position": "Product Manager",
+    "department": "Product",
+    "hire_date": "2018-06-18",
+    "status": "Active",
+    "manager": 1002,
+    "salary": 110000
+  },
+  {
+    "id": 1008,
+    "name": "Emily Davis",
+    "position": "Financial Analyst",
+    "department": "Finance",
+    "hire_date": "2019-02-11",
+    "status": "Active",
+    "manager": 1003,
+    "salary": 90000
+  },
+  {
+    "id": 1009,
+    "name": "James Martin",
+    "position": "HR Specialist",
+    "department": "Human Resources",
+    "hire_date": "2019-05-15",
+    "status": "On Leave",
+    "manager": 1004,
+    "salary": 75000
+  },
+  {
+    "id": 1010,
+    "name": "Olivia White",
+    "position": "Marketing Specialist",
+    "department": "Marketing",
+    "hire_date": "2019-07-22",
+    "status": "Active",
+    "manager": 1005,
+    "salary": 72000
+  },
+  {
+    "id": 1011,
+    "name": "Daniel Brown",
+    "position": "Software Developer",
+    "department": "Technology",
+    "hire_date": "2019-09-10",
+    "status": "Active",
+    "manager": 1006,
+    "salary": 95000
+  },
+  {
+    "id": 1012,
+    "name": "Sophia Garcia",
+    "position": "UX Designer",
+    "department": "Product",
+    "hire_date": "2020-01-15",
+    "status": "Active",
+    "manager": 1007,
+    "salary": 85000
+  },
+  {
+    "id": 1013,
+    "name": "Ryan Thompson",
+    "position": "Accountant",
+    "department": "Finance",
+    "hire_date": "2020-03-05",
+    "status": "Active",
+    "manager": 1003,
+    "salary": 70000
+  },
+  {
+    "id": 1014,
+    "name": "Natalie Parker",
+    "position": "Recruitment Specialist",
+    "department": "Human Resources",
+    "hire_date": "2020-05-12",
+    "status": "Active",
+    "manager": 1004,
+    "salary": 68000
+  },
+  {
+    "id": 1015,
+    "name": "Kevin Nelson",
+    "position": "Content Writer",
+    "department": "Marketing",
+    "hire_date": "2020-07-20",
+    "status": "Active",
+    "manager": 1005,
+    "salary": 65000
+  },
+  {
+    "id": 1016,
+    "name": "Amanda King",
+    "position": "QA Engineer",
+    "department": "Technology",
+    "hire_date": "2020-10-05",
+    "status": "Active",
+    "manager": 1006,
+    "salary": 88000
+  },
+  {
+    "id": 1017,
+    "name": "Thomas Wright",
+    "position": "Product Designer",
+    "department": "Product",
+    "hire_date": "2021-01-18",
+    "status": "Active",
+    "manager": 1007,
+    "salary": 82000
+  },
+  {
+    "id": 1018,
+    "name": "Rebecca Scott",
+    "position": "Payroll Specialist",
+    "department": "Finance",
+    "hire_date": "2021-03-22",
+    "status": "Active",
+    "manager": 1003,
+    "salary": 67000
+  },
+  {
+    "id": 1019,
+    "name": "Christopher Adams",
+    "position": "Training Coordinator",
+    "department": "Human Resources",
+    "hire_date": "2021-06-14",
+    "status": "Probation",
+    "manager": 1004,
+    "salary": 63000
+  },
+  {
+    "id": 1020,
+    "name": "Lauren Hill",
+    "position": "Social Media Manager",
+    "department": "Marketing",
+    "hire_date": "2021-08-23",
+    "status": "Active",
+    "manager": 1005,
+    "salary": 69000
+  },
+  {
+    "id": 1021,
+    "name": "Jason Allen",
+    "position": "Backend Developer",
+    "department": "Technology",
+    "hire_date": "2021-10-11",
+    "status": "Active",
+    "manager": 1006,
+    "salary": 92000
+  },
+  {
+    "id": 1022,
+    "name": "Katherine Young",
+    "position": "Business Analyst",
+    "department": "Product",
+    "hire_date": "2022-01-24",
+    "status": "Active",
+    "manager": 1007,
+    "salary": 78000
+  },
+  {
+    "id": 1023,
+    "name": "Joseph Martinez",
+    "position": "Budget Analyst",
+    "department": "Finance",
+    "hire_date": "2022-04-04",
+    "status": "Active",
+    "manager": 1003,
+    "salary": 71000
+  },
+  {
+    "id": 1024,
+    "name": "Megan Turner",
+    "position": "Benefits Coordinator",
+    "department": "Human Resources",
+    "hire_date": "2022-06-20",
+    "status": "On Leave",
+    "manager": 1004,
+    "salary": 62000
+  },
+  {
+    "id": 1025,
+    "name": "Andrew Evans",
+    "position": "Marketing Analyst",
+    "department": "Marketing",
+    "hire_date": "2022-09-12",
+    "status": "Active",
+    "manager": 1005,
+    "salary": 66000
+  },
+  {
+    "id": 1026,
+    "name": "Samantha Howard",
+    "position": "Frontend Developer",
+    "department": "Technology",
+    "hire_date": "2022-11-07",
+    "status": "Probation",
+    "manager": 1006,
+    "salary": 85000
+  },
+  {
+    "id": 1027,
+    "name": "Brandon Cooper",
+    "position": "Product Analyst",
+    "department": "Product",
+    "hire_date": "2023-01-30",
+    "status": "Active",
+    "manager": 1007,
+    "salary": 75000
+  },
+  {
+    "id": 1028,
+    "name": "Rachel Brooks",
+    "position": "Tax Specialist",
+    "department": "Finance",
+    "hire_date": "2023-03-27",
+    "status": "Active",
+    "manager": 1003,
+    "salary": 68000
+  },
+  {
+    "id": 1029,
+    "name": "Patrick Gray",
+    "position": "Employee Relations Specialist",
+    "department": "Human Resources",
+    "hire_date": "2023-05-15",
+    "status": "Active",
+    "manager": 1004,
+    "salary": 64000
+  },
+  {
+    "id": 1030,
+    "name": "Emma Watson",
+    "position": "Brand Strategist",
+    "department": "Marketing",
+    "hire_date": "2023-07-24",
+    "status": "Probation",
+    "manager": 1005,
+    "salary": 67000
+  }
+]
