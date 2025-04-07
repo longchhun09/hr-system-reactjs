@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
@@ -6,6 +7,7 @@ import { AppSidebar } from '@/components/app-sidebar';
 import { DataTable } from '@/components/data-table';
 import { SiteHeader } from '@/components/site-header';
 import employeeData from '@/app/dashboard/data.json';
+import { AddEmployeeDialog } from '@/components/employees/add-employee-dialog';
 
 export default function EmployeesPage() {
   return (
@@ -29,7 +31,7 @@ export default function EmployeesPage() {
                   <Button variant="outline" size="sm" asChild>
                     <Link href="#">Export</Link>
                   </Button>
-                  <Button size="sm">Add Employee</Button>
+                  <AddEmployeeDialog />
                 </div>
               </div>
               <div className="flex-1 flex flex-col min-h-0">
