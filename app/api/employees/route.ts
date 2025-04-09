@@ -1,36 +1,51 @@
 import { NextResponse } from 'next/server';
-import data from '@/app/api/employees/data.json';
+import { prisma } from '@/lib/db';
 
 // GET /api/employees
 export async function GET() {
-  return NextResponse.json(data);
+  try {
+    const employees = await prisma.employee.findMany({
+      include: {
+        manager: true,
+        subordinates: true,
+        department: true,
+      },
+    });
+    return NextResponse.json(employees);
+  } catch (error) {
+    console.error('Failed to fetch employees:', error);
+    return NextResponse.json(
+      { error: 'Failed to fetch employees' },
+      { status: 500 }
+    );
+  }
 }
 
 // POST /api/employees
 export async function POST(request: Request) {
   try {
-    const newEmployee = await request.json();
-    
-    // Validate required fields
-    if (!newEmployee.name || !newEmployee.position || !newEmployee.department || 
-        !newEmployee.hire_date || !newEmployee.status || !newEmployee.salary) {
-      return NextResponse.json(
-        { error: 'Missing required fields' },
-        { status: 400 }
-      );
-    }
-
-    // Generate new ID (simple implementation)
-    const newId = Math.max(...data.map(emp => emp.id)) + 1;
-    const employee = { ...newEmployee, id: newId };
-    
-    // In a real implementation, you would save to a database
-    // For mock purposes, we'll just return the new employee
-    return NextResponse.json(employee, { status: 201 });
+    const body = await request.json();
+    const employee = await prisma.employee.create({
+      data: {
+        name: body.name,
+        position: body.position,
+        departmentId: body.departmentId,
+        hire_date: new Date(body.hire_date),
+        status: body.status,
+        managerId: body.managerId,
+        salary: parseFloat(body.salary),
+      },
+      include: {
+        manager: true,
+        department: true,
+      },
+    });
+    return NextResponse.json(employee);
   } catch (error) {
+    console.error('Failed to create employee:', error);
     return NextResponse.json(
-      { error: 'Invalid request body' },
-      { status: 400 }
+      { error: 'Failed to create employee' },
+      { status: 500 }
     );
   }
 } 
