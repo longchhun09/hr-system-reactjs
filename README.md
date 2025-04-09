@@ -2,6 +2,24 @@
 
 This is a Human Resources management system built with Next.js, React, and Prisma ORM.
 
+## Screenshots
+
+### Employee List View
+![Employee List](screenshots/employee-list.png)
+Comprehensive view of all employees with sorting and filtering capabilities.
+
+### Add Employee Form
+![Add Employee](screenshots/add-employee.png)
+Form for adding new employees to the system.
+
+### Prisma Studio
+![Prisma Studio](screenshots/prisma-studio.png)
+Database management interface for viewing and editing data.
+
+### API Documentation
+![Swagger API](screenshots/swagger-api.png)
+Interactive API documentation with Swagger UI.
+
 ## Prerequisites
 
 - Node.js (v18 or later)
@@ -21,7 +39,7 @@ npm install
 Create a `.env` file in the root directory with the following content:
 
 ```env
-DATABASE_URL="postgresql://hr-db:cbmedia12345@localhost:5432/hr_system?schema=public"
+DATABASE_URL="postgresql://hr-db:internalCompany12345@localhost:5432/hr_system?schema=public"
 NEXT_PUBLIC_API_BASE_URL=http://localhost:3000
 ```
 
