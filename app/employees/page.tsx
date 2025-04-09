@@ -1,15 +1,61 @@
 'use client';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/app-sidebar';
 import { DataTable } from '@/components/data-table';
 import { SiteHeader } from '@/components/site-header';
-import employeeData from '@/app/dashboard/data.json';
 import { AddEmployeeDialog } from '@/components/employees/add-employee-dialog';
 
+interface Employee {
+  id: number;
+  name: string;
+  position: string;
+  department: string;
+  hire_date: string;
+  status: string;
+  manager: number | null;
+  salary: number;
+}
+
 export default function EmployeesPage() {
+  const [employeeData, setEmployeeData] = useState<Employee[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchEmployees = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/api/employees');
+        const data = await response.json();
+        setEmployeeData(data);
+      } catch (error) {
+        console.error('Error fetching employees:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEmployees();
+  }, []);
+
+  if (loading) {
+    return (
+      <SidebarProvider>
+        <AppSidebar variant="inset" />
+        <SidebarInset>
+          <SiteHeader />
+          <div className="flex flex-1 flex-col p-6">
+            <div className="flex items-center justify-center h-full">
+              <p>Loading...</p>
+            </div>
+          </div>
+        </SidebarInset>
+      </SidebarProvider>
+    );
+  }
+
   return (
     <SidebarProvider>
       <AppSidebar variant="inset" />
