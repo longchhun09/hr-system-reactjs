@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import { useToast } from '@/components/ui/use-toast';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -47,8 +48,13 @@ const formSchema = z.object({
   salary: z.string().min(1, 'Salary is required'),
 });
 
-export function AddEmployeeDialog() {
+interface AddEmployeeDialogProps {
+  onEmployeeAdded: (newEmployee: any) => void;
+}
+
+export function AddEmployeeDialog({ onEmployeeAdded }: AddEmployeeDialogProps) {
   const [open, setOpen] = useState(false);
+  const { toast } = useToast();
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -61,10 +67,40 @@ export function AddEmployeeDialog() {
     },
   });
 
-  function onSubmit(values: FormValues) {
-    console.log(values);
-    setOpen(false);
-    form.reset();
+  async function onSubmit(values: FormValues) {
+    try {
+      const response = await fetch('http://localhost:3000/api/employees', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...values,
+          salary: parseFloat(values.salary),
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to add employee');
+      }
+
+      const newEmployee = await response.json();
+      onEmployeeAdded(newEmployee);
+      
+      toast({
+        title: "Success",
+        description: "Employee added successfully",
+      });
+      
+      setOpen(false);
+      form.reset();
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to add employee",
+        variant: "destructive",
+      });
+    }
   }
 
   return (

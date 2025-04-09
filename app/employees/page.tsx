@@ -8,6 +8,7 @@ import { AppSidebar } from '@/components/app-sidebar';
 import { DataTable } from '@/components/data-table';
 import { SiteHeader } from '@/components/site-header';
 import { AddEmployeeDialog } from '@/components/employees/add-employee-dialog';
+import { Toaster } from '@/components/ui/toaster';
 
 interface Employee {
   id: number;
@@ -39,6 +40,10 @@ export default function EmployeesPage() {
 
     fetchEmployees();
   }, []);
+
+  const handleEmployeeAdded = (newEmployee: Employee) => {
+    setEmployeeData(prevData => [newEmployee, ...prevData]);
+  };
 
   if (loading) {
     return (
@@ -77,7 +82,7 @@ export default function EmployeesPage() {
                   <Button variant="outline" size="sm" asChild>
                     <Link href="#">Export</Link>
                   </Button>
-                  <AddEmployeeDialog />
+                  <AddEmployeeDialog onEmployeeAdded={handleEmployeeAdded} />
                 </div>
               </div>
               <div className="flex-1 flex flex-col min-h-0">
@@ -167,6 +172,7 @@ export default function EmployeesPage() {
           </div>
         </div>
       </SidebarInset>
+      <Toaster />
     </SidebarProvider>
   );
 }
