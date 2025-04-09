@@ -1,0 +1,140 @@
+openapi: 3.0.0
+info:
+  title: HR System API
+  description: API for managing employee data in the HR system
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000/api
+    description: Development server
+
+paths:
+  /employees:
+    get:
+      summary: Get all employees
+      description: Retrieve a list of all employees
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Employee'
+    post:
+      summary: Create a new employee
+      description: Add a new employee to the system
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employee'
+      responses:
+        '201':
+          description: Employee created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+
+  /employees/{employeeId}:
+    get:
+      summary: Get employee by ID
+      description: Retrieve a specific employee by their ID
+      parameters:
+        - name: employeeId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '404':
+          description: Employee not found
+    put:
+      summary: Update employee
+      description: Update an existing employee's information
+      parameters:
+        - name: employeeId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employee'
+      responses:
+        '200':
+          description: Employee updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '404':
+          description: Employee not found
+    delete:
+      summary: Delete employee
+      description: Remove an employee from the system
+      parameters:
+        - name: employeeId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Employee deleted successfully
+        '404':
+          description: Employee not found
+
+components:
+  schemas:
+    Employee:
+      type: object
+      required:
+        - id
+        - name
+        - position
+        - department
+        - hire_date
+        - status
+        - salary
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the employee
+        name:
+          type: string
+          description: Full name of the employee
+        position:
+          type: string
+          description: Job position of the employee
+        department:
+          type: string
+          description: Department where the employee works
+        hire_date:
+          type: string
+          format: date
+          description: Date when the employee was hired (YYYY-MM-DD)
+        status:
+          type: string
+          enum: [Active, On Leave, Probation]
+          description: Current employment status
+        manager:
+          type: integer
+          nullable: true
+          description: ID of the employee's manager (null if no manager)
+        salary:
+          type: number
+          format: float
+          description: Annual salary of the employee 

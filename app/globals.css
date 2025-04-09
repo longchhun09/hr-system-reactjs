@@ -92,3 +92,23 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.swagger-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.swagger-ui .topbar {
+  display: none;
+}
+
+.swagger-ui .info {
+  margin: 20px 0;
+}
+
+.swagger-ui .scheme-container {
+  padding: 15px 0;
+  margin: 0;
+  background: #fafafa;
+}
