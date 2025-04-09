@@ -82,11 +82,22 @@ export const schema = z.object({
   id: z.number(),
   name: z.string(),
   position: z.string(),
-  department: z.string(),
+  department: z.object({
+    id: z.number(),
+    name: z.string(),
+    description: z.string().nullable(),
+  }),
   hire_date: z.string(),
   status: z.string(),
-  manager: z.number().nullable(),
-  salary: z.number()
+  manager: z.object({
+    id: z.number(),
+    name: z.string(),
+  }).nullable(),
+  salary: z.number(),
+  subordinates: z.array(z.object({
+    id: z.number(),
+    name: z.string(),
+  })),
 })
 
 // Create a separate component for the drag handle
@@ -162,7 +173,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
     header: "Department",
     cell: ({ row }) => (
       <div className="w-32">
-        {row.original.department}
+        {row.original.department.name}
       </div>
     ),
   },
@@ -525,170 +536,17 @@ const chartConfig = {
 } satisfies ChartConfig
 
 function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
-  const isMobile = useIsMobile()
-  const [isOpen, setIsOpen] = React.useState(false)
-
   return (
-    <Sheet open={isOpen} onOpenChange={setIsOpen}>
-      <SheetTrigger asChild>
-        <Button variant="ghost" className="flex h-auto w-full justify-start px-2 py-1.5">
-          <div className="flex w-full flex-col items-start gap-0.5 truncate">
-            <span className="truncate">{item.name}</span>
-            <span className="text-xs text-muted-foreground">{item.position}</span>
-          </div>
-        </Button>
-      </SheetTrigger>
-      <SheetContent className="flex h-full w-full flex-col @container sm:max-w-lg">
-        <SheetHeader className="px-1">
-          <SheetTitle className="flex flex-col gap-1">
-            <div className="flex items-center gap-2">
-              <div className="flex flex-col">
-                <span className="text-base">{item.name}</span>
-                <span className="text-sm text-muted-foreground">{item.position}</span>
-              </div>
-            </div>
-          </SheetTitle>
-          <SheetDescription className="flex items-center gap-2 text-muted-foreground">
-            ID: {item.id}
-          </SheetDescription>
-        </SheetHeader>
-        <div className="flex-1 overflow-auto">
-          {!isMobile && (
-            <>
-              <div className="mb-4 mt-6 flex flex-col gap-2 px-1">
-                <h4 className="text-sm font-medium">Performance Overview</h4>
-                <ChartContainer config={chartConfig} className="aspect-[4/1] w-full">
-                  <AreaChart data={chartData}>
-                    <CartesianGrid stroke="var(--border)" strokeDasharray="5 5" vertical={false} />
-                    <XAxis dataKey="month" fontSize={12} tickLine={false} axisLine={false} />
-                    <ChartTooltip
-                      content={({ active, payload }) => {
-                        if (active && payload?.length) {
-                          return (
-                            <ChartTooltipContent
-                              items={payload.map((item) => ({
-                                label: chartConfig[item.dataKey as keyof typeof chartConfig].label,
-                                value: String(item.value),
-                                color: chartConfig[item.dataKey as keyof typeof chartConfig].color,
-                              }))}
-                              className="text-xs"
-                            />
-                          )
-                        }
-                        return null
-                      }}
-                    />
-                    <Area
-                      type="monotone"
-                      dataKey="desktop"
-                      stroke="hsl(var(--primary))"
-                      strokeWidth={2}
-                      fill="hsl(var(--primary) / 0.1)"
-                      activeDot={{
-                        r: 6,
-                        style: { fill: "var(--primary)" },
-                      }}
-                    />
-                    <Area
-                      type="monotone"
-                      dataKey="mobile"
-                      stroke="hsl(var(--primary))"
-                      strokeWidth={2}
-                      strokeDasharray={"5 5"}
-                      activeDot={{
-                        r: 6,
-                        style: { fill: "var(--primary)" },
-                      }}
-                    />
-                  </AreaChart>
-                </ChartContainer>
-              </div>
-              <Separator />
-            </>
-          )}
-          <form className="flex flex-col gap-4">
-            <div className="flex flex-col gap-3">
-              <Label htmlFor="name">Name</Label>
-              <Input id="name" defaultValue={item.name} />
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="flex flex-col gap-3">
-                <Label htmlFor="position">Position</Label>
-                <Select defaultValue={item.position}>
-                  <SelectTrigger id="position" className="w-full">
-                    <SelectValue placeholder="Select a position" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Software Engineer">Software Engineer</SelectItem>
-                    <SelectItem value="Product Manager">Product Manager</SelectItem>
-                    <SelectItem value="HR Manager">HR Manager</SelectItem>
-                    <SelectItem value="Marketing Specialist">Marketing Specialist</SelectItem>
-                    <SelectItem value="Sales Representative">Sales Representative</SelectItem>
-                    <SelectItem value="Director">Director</SelectItem>
-                    <SelectItem value="CEO">CEO</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex flex-col gap-3">
-                <Label htmlFor="status">Status</Label>
-                <Select defaultValue={item.status}>
-                  <SelectTrigger id="status" className="w-full">
-                    <SelectValue placeholder="Select a status" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Active">Active</SelectItem>
-                    <SelectItem value="On Leave">On Leave</SelectItem>
-                    <SelectItem value="Probation">Probation</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="flex flex-col gap-3">
-                <Label htmlFor="department">Department</Label>
-                <Select defaultValue={item.department}>
-                  <SelectTrigger id="department" className="w-full">
-                    <SelectValue placeholder="Select a department" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Engineering">Engineering</SelectItem>
-                    <SelectItem value="Marketing">Marketing</SelectItem>
-                    <SelectItem value="Sales">Sales</SelectItem>
-                    <SelectItem value="Human Resources">Human Resources</SelectItem>
-                    <SelectItem value="Finance">Finance</SelectItem>
-                    <SelectItem value="Executive">Executive</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex flex-col gap-3">
-                <Label htmlFor="hire_date">Hire Date</Label>
-                <Input id="hire_date" defaultValue={item.hire_date} />
-              </div>
-            </div>
-            <div className="flex flex-col gap-3">
-              <Label htmlFor="salary">Salary</Label>
-              <Input id="salary" type="number" defaultValue={item.salary.toString()} />
-            </div>
-            <div className="flex flex-col gap-3">
-              <Label htmlFor="manager">Manager</Label>
-              <Input id="manager" type="number" defaultValue={item.manager?.toString() || "0"} />
-            </div>
-          </form>
+    <div className="flex flex-col gap-1">
+      <div className="font-medium">{item.name}</div>
+      <div className="text-sm text-muted-foreground">
+        {item.department.name} • {item.position}
+      </div>
+      {item.manager && (
+        <div className="text-xs text-muted-foreground">
+          Reports to: {item.manager.name}
         </div>
-        <SheetFooter className="mt-auto flex gap-2 sm:flex-col sm:space-x-0">
-          <Button className="w-full" onClick={() => {
-            toast.success("Employee data updated successfully")
-            setIsOpen(false)
-          }}>
-            Save Changes
-          </Button>
-          <SheetClose asChild>
-            <Button variant="outline" className="w-full">
-              Cancel
-            </Button>
-          </SheetClose>
-        </SheetFooter>
-      </SheetContent>
-    </Sheet>
+      )}
+    </div>
   )
 }

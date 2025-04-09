@@ -14,10 +14,17 @@ interface Employee {
   id: number;
   name: string;
   position: string;
-  department: string;
+  department: {
+    id: number;
+    name: string;
+    description: string | null;
+  };
   hire_date: string;
   status: string;
-  manager: number | null;
+  manager: {
+    id: number;
+    name: string;
+  } | null;
   salary: number;
 }
 
@@ -148,7 +155,7 @@ export default function EmployeesPage() {
                     <div className="p-6 pt-0">
                       <div className="text-2xl font-bold">
                         {
-                          new Set(employeeData.map((emp) => emp.department))
+                          new Set(employeeData.map((emp) => emp.department.name))
                             .size
                         }
                       </div>
